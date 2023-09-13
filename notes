@@ -1,111 +1,105 @@
-<!-- 
+// Setup React App
+// npx create-react-app app-name
 
-Setup React App
-npx create-react-app app-name
+// Install Redux & React-Redux & Redux Toolkit within App 
+// npm install redux react-redux @reduxjs/toolkit
+// **redux thunk - npm install redux-thunk
 
-Install Redux & React-Redux & Redux Toolkit within App 
-npm install redux react-redux @reduxjs/toolkit
-**redux thunk - npm install redux-thunk
-
-Create Redux Actions 
-create actions folder within src
-define Redux actions
-*can also include payload(s)
-**use Redux Thunk for handling async logic. Example (async action to simulate an API call): export const incrementAsync = (amount) => {return (dispatch) => { setTimeout(() => { dispatch(increment(amount));}, 1000);};};
+// Create Redux Actions 
+// create actions folder within src
+// define Redux actions
+// *can also include payload(s)
+// **use Redux Thunk for handling async logic. Example (async action to simulate an API call): export const incrementAsync = (amount) => {return (dispatch) => { setTimeout(() => { dispatch(increment(amount));}, 1000);};};
 
 
-Create Redux Reducers  
-create reducers folder within src
-define Redux reducers
-changed to Redux Toolkit for createSlice method
-*handle the payload and update the state accordingly - example: case 'INCREMENT': return state + action.payload;
+// Create Redux Reducers  
+// create reducers folder within src
+// define Redux reducers
+// changed to Redux Toolkit for createSlice method
+// *handle the payload and update the state accordingly - example: case 'INCREMENT': return state + action.payload;
 
-Create the Redux Store
-create file named store.js to configure Redux Store within src
-define store
-changed to Redux Toolkit instead as recommended. More concise and avoids manual action creation & switch statements. Using slice method so no need to pass reducers to configureStore as I would with combineReducers
-**include Redux Thunk middleware: import thunk from 'redux-thunk'; example: const store = configureStore({reducer: rootReducer, middleware: [thunk],})
+// Create the Redux Store
+// create file named store.js to configure Redux Store within src
+// define store
+// changed to Redux Toolkit instead as recommended. More concise and avoids manual action creation & switch statements. Using slice method so no need to pass reducers to configureStore as I would with combineReducers
+// **include Redux Thunk middleware: import thunk from 'redux-thunk'; example: const store = configureStore({reducer: rootReducer, middleware: [thunk],})
 
-Create React Components
-create components folder within src
-difine component
-changed to Redux Toolkit for accessing state & dispatching actions (slice)
+// Create React Components
+// create components folder within src
+// difine component
+// changed to Redux Toolkit for accessing state & dispatching actions (slice)
 
-Create Custom Hooks
-create hooks folder within src
-create any custom hook(s) to encapsulate certain logic
-example: handling form input
-create file useInput
-define custom hook
+// Create Custom Hooks
+// create hooks folder within src
+// create any custom hook(s) to encapsulate certain logic
+// example: handling form input
+// create file useInput
+// define custom hook
 
-Use Reduxx & Custom Hooks in App.js
-use the defined Redux Store & Custom Hooks in the main component
+// Use Reduxx & Custom Hooks in App.js
+// use the defined Redux Store & Custom Hooks in the main component
 
-npm start - app runs and user can increment or decrement from starting point 0 by pressing the corresponding buttons
+// npm start - app runs and user can increment or decrement from starting point 0 by pressing the corresponding buttons
 
-****************************************************************************************************************************************************
+************************************************************************************
 
-To implement combineReducers method (for larger apps with multiple reducers that can be combined into a single root reducer) instead of createSlice:
-**Separate reducers for the 'counter' and 'user' parts of state & the root reducer combines the using combineReducers. Allows for management of different parts of state independently while maintaining a single store.
+// To implement combineReducers method (for larger apps with multiple reducers that can be combined into a single root reducer) instead of createSlice:
+// **Separate reducers for the 'counter' and 'user' parts of state & the root reducer combines the using combineReducers. Allows for management of different parts of state independently while maintaining a single store.
 
-1. have multiple reducers
-2. update existing reducer for redux syntax without toolkit
-3. create a RootReducer using combineReducers
-4. Update Store Configuration
-
-
-1.) 
-Need multiple reducers (already have 1: counterReducer)
-create one for user state: 
-userReducer.js
-const initialState = {
-    username: 'guest',
-};
-const userReducer = (state, initialState, action) => {
-    switch (action.type) {
-        // Add user related actions here as needed.
-        default:
-        return state;
-    }
-};
-export default userReducer;
-
-2.)
-Update counterReducer:
-const initialState = 0; 
-const counterReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'INCREMENT':
-        return state + 1;
-        case 'DECREMENT':
-        return state - 1;
-        Default:
-        return state;
-    }
-};
-export default counterReducer;
-
-3.) 
-Create Root Reducer using combineReducers to combine the individual reducers:
-rootReducer.js
-import { combineReducers } from 'redux';
-imort counterReduceer from './counterReducer';
-import userReducer from ./userReducer';
-const rootReducer = combineReducers({
-    counter: counterReducer,
-    user: userReducer,
-});
-export default rootReducer;
-
-4.)
-Update Store Configuration:
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers/rootReducer';
-const store = configureStore({
-    reducer: rootReducer,
-});
-export default store;
+// 1. have multiple reducers
+// 2. update existing reducer for redux syntax without toolkit
+// 3. create a RootReducer using combineReducers
+// 4. Update Store Configuration
 
 
+// 1.) 
+// Need multiple reducers (already have 1: counterReducer)
+// create one for user state: 
+// userReducer.js
+// const initialState = {
+//     username: 'guest',
+// };
+// const userReducer = (state, initialState, action) => {
+//     switch (action.type) {
+//         // Add user related actions here as needed.
+//         default:
+//         return state;
+//     }
+// };
+// export default userReducer;
 
--->
+// 2.)
+// Update counterReducer:
+// const initialState = 0; 
+// const counterReducer = (state = initialState, action) => {
+//     switch (action.type) {
+//         case 'INCREMENT':
+//         return state + 1;
+//         case 'DECREMENT':
+//         return state - 1;
+//         Default:
+//         return state;
+//     }
+// };
+// export default counterReducer;
+
+// 3.) 
+// Create Root Reducer using combineReducers to combine the individual reducers:
+// rootReducer.js
+// import { combineReducers } from 'redux';
+// imort counterReduceer from './counterReducer';
+// import userReducer from ./userReducer';
+// const rootReducer = combineReducers({
+//     counter: counterReducer,
+//     user: userReducer,
+// });
+// export default rootReducer;
+
+// 4.)
+// Update Store Configuration:
+// import { configureStore } from '@reduxjs/toolkit';
+// import rootReducer from './reducers/rootReducer';
+// const store = configureStore({
+//     reducer: rootReducer,
+// });
+// export default store;
